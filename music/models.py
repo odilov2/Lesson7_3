@@ -6,6 +6,8 @@ class Artist(models.Model):
     image = models.URLField(null=True)
     last_update = models.DateField(auto_now=True)
     create_date = models.DateField(auto_now_add=True)
+    search = models.IntegerField(default=0)
+    member = models.IntegerField(default=0)
 
 
 class Albom(models.Model):
@@ -14,6 +16,7 @@ class Albom(models.Model):
     cover = models.URLField(null=True)
     last_update = models.DateField(auto_now=True)
     create_date = models.DateField(auto_now_add=True)
+    songs_count = models.IntegerField(default=0)
 
 
 class Songs(models.Model):
@@ -22,3 +25,10 @@ class Songs(models.Model):
     albom = models.ForeignKey(Albom, on_delete=models.CASCADE, null=True)
     last_update = models.DateField(auto_now=True)
     create_date = models.DateField(auto_now_add=True)
+    listened = models.PositiveBigIntegerField(default=0)
+
+    class Meta:
+        ordering = ['id']
+        indexes = [
+            models.Index(fields=['id'])
+        ]
